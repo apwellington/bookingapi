@@ -14,6 +14,7 @@ public class Room {
     @Column(name = "id")
     private Long id;
     private String description;
+    private String number;
 
     @ManyToOne
     private Hotel hotel;
