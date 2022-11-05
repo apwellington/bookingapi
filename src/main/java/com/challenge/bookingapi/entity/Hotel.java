@@ -1,23 +1,28 @@
 package com.challenge.bookingapi.entity;
 
 
-import com.challenge.bookingapi.entity.base.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
-public class Hotel extends BaseEntity {
+public class Hotel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
+    private Date createdAt;
+    private Date updatedAt;
     private String name;
     private String hotelCode;
 
-    @OneToOne
+    @ManyToOne
     private Country country;
-    @OneToMany
+
+    @OneToMany(mappedBy = "hotel")
     private List<Room> roomList;
 
 }

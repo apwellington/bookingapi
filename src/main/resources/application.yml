@@ -3,13 +3,15 @@ spring:
     activate:
       on-profile: dev
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create
-
+      ddl-auto: update
   datasource:
-    url: jdbc:h2:mem:bookingdb
-    username: sa
-    password: password
+    url: jdbc:h2:mem:booking
+    username: dev
+    password: book
     driverClassName: org.h2.Driver
----
+  h2:
+    console:
+      enabled: true
 
