@@ -12,9 +12,9 @@ import java.util.Date;
 public class Booking  {
 
     @Id
-    @GeneratedValue(strategy =GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
-    private Date createdAt;
+    private Date createdAt = new Date();
     private Date updatedAt;
     private String detail;
     private String description;
@@ -27,7 +27,7 @@ public class Booking  {
     @JoinColumn(name = "room_id", referencedColumnName = "room_id")
     private Room room;
 
-    private Boolean bookingActived;
+    private Boolean bookingActived = true;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fromDate;

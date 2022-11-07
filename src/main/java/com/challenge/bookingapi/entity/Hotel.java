@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class Hotel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long hotelId;
     private Date createdAt;
     private Date updatedAt;

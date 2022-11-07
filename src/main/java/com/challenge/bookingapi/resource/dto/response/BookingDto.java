@@ -9,10 +9,9 @@ import java.util.Date;
 @Data
 @JsonIgnoreProperties
 public class BookingDto {
-    private Long id;
+    private Long bookingId;
     private String detail;
     private String description;
-    private String bookingCode;
     private Date fromDate;
     private Date toDate;
     private Boolean bookingActived;

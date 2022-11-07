@@ -1,6 +1,7 @@
 package com.challenge.bookingapi.service.impl;
 
 import com.challenge.bookingapi.entity.Room;
+import com.challenge.bookingapi.exception.BookingAppException;
 import com.challenge.bookingapi.exception.RoomException;
 import com.challenge.bookingapi.repository.IRoomRepository;
 import com.challenge.bookingapi.service.IRoomService;
@@ -25,7 +26,13 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public Optional<Collection<Room>> findAvailableRoomsByDateRage(Long hotelId, Date dateTo, Date dateFrom) throws RoomException {
-        return this.roomRepository.findAllByHotelAndDateRange(hotelId, dateTo, dateFrom);
+        try{
+            return this.roomRepository.findAllByHotelAndDateRange(hotelId, dateTo, dateFrom)
+                    .map(Optional::of)
+                    .orElseThrow();
+        }catch (BookingAppException e){
+            throw new RoomException("Can not find hotel rooms");
+        }
     }
 
     @Override

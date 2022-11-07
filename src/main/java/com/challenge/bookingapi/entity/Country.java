@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 public class Country {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "COUNTRY_ID")
     private Long countryId;
     private Date createdAt;

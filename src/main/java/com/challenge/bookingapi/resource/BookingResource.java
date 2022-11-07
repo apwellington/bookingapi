@@ -79,7 +79,7 @@ public class BookingResource {
     }
 
     @PostMapping("")
-    public ResponseEntity<ResponseDto> saveABooking(@RequestBody BookingRequestDto bookingDto){
+    public ResponseEntity<ResponseDto> saveBooking(@RequestBody BookingRequestDto bookingDto){
         log.info("saveABooking() -init");
         var response = new ResponseDto<BookingDto>(LocalDateTime.now());
 
@@ -94,6 +94,42 @@ public class BookingResource {
              preparedErrorResponse(e.getMessage(), response);
              return ResponseEntity.internalServerError().body(response);
          }
+    }
+
+    @PutMapping("")
+    public ResponseEntity<ResponseDto> cancelBooking(@RequestParam("bookingID") Long bookingID){
+        log.info("saveABooking() -init");
+        var response = new ResponseDto<BookingDto>(LocalDateTime.now());
+
+        try{
+            this.bookingService.cancelBooking(bookingID).ifPresent(item ->{
+                response.setData(map(item, BookingDto.class, modelMapper));
+                response.setMessage(HttpStatus.OK.getReasonPhrase());
+                response.setStatusCode(HttpStatus.OK.value());
+            });
+            return ResponseEntity.ok(response);
+        }catch (BookingAppException e){
+            preparedErrorResponse(e.getMessage(), response);
+            return ResponseEntity.internalServerError().body(response);
+        }
+    }
+
+    @PutMapping("/{bookingId}")
+    public ResponseEntity<ResponseDto> updateBooking(@PathVariable Long bookingId, @RequestBody BookingRequestDto bookingRequestDto){
+        log.info("saveABooking() -init");
+        var response = new ResponseDto<BookingDto>(LocalDateTime.now());
+
+        try{
+            this.bookingService.updateBooking(bookingId, bookingRequestDto).ifPresent(item ->{
+                response.setData(map(item, BookingDto.class, modelMapper));
+                response.setMessage(HttpStatus.OK.getReasonPhrase());
+                response.setStatusCode(HttpStatus.OK.value());
+            });
+            return ResponseEntity.ok(response);
+        }catch (BookingAppException e){
+            preparedErrorResponse(e.getMessage(), response);
+            return ResponseEntity.internalServerError().body(response);
+        }
     }
 
 
