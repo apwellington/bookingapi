@@ -1,9 +1,10 @@
 package com.challenge.bookingapi.entity;
 
-import com.challenge.bookingapi.util.BookingStatus;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -11,24 +12,26 @@ import java.util.Date;
 public class Booking  {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+    @GeneratedValue(strategy =GenerationType.SEQUENCE)
+    private Long bookingId;
     private Date createdAt;
     private Date updatedAt;
     private String detail;
     private String description;
-    private String bookingCode;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "customerId")
     private Customer customer;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    @JoinColumn(name = "room_id", referencedColumnName = "room_id")
     private Room room;
 
-    private BookingStatus bookingStatus;
+    private Boolean bookingActived;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fromDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date toDate;
 }

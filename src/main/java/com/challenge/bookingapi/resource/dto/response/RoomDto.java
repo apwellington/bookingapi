@@ -1,4 +1,4 @@
-package com.challenge.bookingapi.resource.dto;
+package com.challenge.bookingapi.resource.dto.response;
 
 import com.challenge.bookingapi.entity.Booking;
 import com.challenge.bookingapi.entity.Hotel;
@@ -10,7 +10,8 @@ import java.util.Date;
 
 @Data
 @JsonIgnoreProperties
-public class RomDto {
+public class RoomDto {
+    private Long id;
     private String description;
     private String number;
     @JsonBackReference

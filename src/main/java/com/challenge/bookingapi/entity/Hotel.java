@@ -12,14 +12,14 @@ import java.util.List;
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+    private Long hotelId;
     private Date createdAt;
     private Date updatedAt;
     private String name;
     private String hotelCode;
 
     @ManyToOne
+    @JoinColumn(name = "COUNTRY_ID")
     private Country country;
 
     @OneToMany(mappedBy = "hotel")

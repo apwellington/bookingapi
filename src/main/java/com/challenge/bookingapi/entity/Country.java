@@ -11,8 +11,8 @@ import java.util.List;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "COUNTRY_ID")
+    private Long countryId;
     private Date createdAt;
     private Date updatedAt;
     private String name;

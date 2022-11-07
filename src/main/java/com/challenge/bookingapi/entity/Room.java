@@ -11,12 +11,13 @@ public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "room_id")
+    private Long roomId;
     private String description;
     private String number;
 
     @ManyToOne
+    @JoinColumn(name = "HOTEl_ID")
     private Hotel hotel;
 
     @OneToOne(mappedBy = "room")

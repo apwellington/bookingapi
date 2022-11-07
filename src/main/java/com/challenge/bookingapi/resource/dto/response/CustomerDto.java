@@ -1,4 +1,4 @@
-package com.challenge.bookingapi.resource.dto;
+package com.challenge.bookingapi.resource.dto.response;
 
 import com.challenge.bookingapi.entity.Booking;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -10,6 +10,7 @@ import java.util.Date;
 @Data
 @JsonIgnoreProperties
 public class CustomerDto {
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;

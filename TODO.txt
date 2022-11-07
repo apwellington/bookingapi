@@ -1,5 +1,5 @@
 
-//TODO List the availability dates for a specific room in a particular hotel.
+//TODO Given a date range, List the availability dates for a specific room in a particular hotel.
 
 //TODO Make a reservation for an available room.
 
@@ -7,4 +7,4 @@
 
 //TODO Cancel a reservation for a booked room.
 
-//TODO List all reservations for a particular user.
+// List all reservations for a particular user.

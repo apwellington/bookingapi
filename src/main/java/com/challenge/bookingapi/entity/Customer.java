@@ -3,6 +3,7 @@ package com.challenge.bookingapi.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 @Data
@@ -10,14 +11,13 @@ import java.util.Date;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+    private Long customerId;
     private String firstName;
     private String lastName;
     private String email;
     private Date createdAt;
     private Date updatedAt;
 
-    @OneToOne(mappedBy = "customer")
-    private Booking booking;
+    @OneToMany
+    private Collection<Booking> booking;
 }

@@ -1,4 +1,4 @@
-package com.challenge.bookingapi.resource.dto;
+package com.challenge.bookingapi.resource.dto.response;
 
 import com.challenge.bookingapi.entity.Country;
 import com.challenge.bookingapi.entity.Room;
@@ -13,6 +13,8 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties
 public class HotelDto {
+
+    private Long id;
 
     private Date createdAt;
     private Date updatedAt;

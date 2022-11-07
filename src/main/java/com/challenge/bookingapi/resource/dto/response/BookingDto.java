@@ -1,24 +1,25 @@
-package com.challenge.bookingapi.resource.dto;
+package com.challenge.bookingapi.resource.dto.response;
 
-import com.challenge.bookingapi.util.BookingStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class BookingDto implements Serializable {
+@JsonIgnoreProperties
+public class BookingDto {
+    private Long id;
     private String detail;
     private String description;
     private String bookingCode;
     private Date fromDate;
     private Date toDate;
-    private BookingStatus bookingStatus;
+    private Boolean bookingActived;
     @JsonManagedReference
     private CustomerDto customer;
     @JsonManagedReference
-    private RomDto room;
+    private RoomDto room;
     private Date createdAt;
     private Date updatedAt;
 }

@@ -11,10 +11,10 @@ import java.util.Optional;
 
 @Repository
 public interface IBookingRepository extends JpaRepository<Booking, Long> {
-    @Query("SELECT b FROM Booking b where b.customer.id = :customerID")
-    Optional<Collection<Booking>> findAllBookingByCustomerId(@Param("customerID") Long customerID);
+    @Query("SELECT b FROM Booking b WHERE b.customer.id = :customerCode")
+    Optional<Collection<Booking>> findAllBookingByCustomerCode(@Param("customerCode") Long customerCode);
 
-    @Query("UPDATE Booking b SET b.bookingStatus = 'CANCELED' WHERE b.bookingCode = :bookingCode")
-    Optional<Booking> cancelBookingByBookingCode(@Param("bookingCode") String bookingCode);
+    @Query("UPDATE Booking b SET b.bookingActived = 'false' WHERE b.id = :id")
+    Optional<Booking> cancelBookingByBookingCode(@Param("id") Long id);
 
 }

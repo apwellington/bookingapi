@@ -1,4 +1,4 @@
-package com.challenge.bookingapi.resource.dto;
+package com.challenge.bookingapi.resource.dto.response;
 
 import com.challenge.bookingapi.entity.Hotel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties
 public class CountryDto {
+    private Long id;
     private Date createdAt;
     private Date updatedAt;
     private String name;
