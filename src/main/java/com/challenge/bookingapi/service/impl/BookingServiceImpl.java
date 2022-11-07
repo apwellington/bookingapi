@@ -6,11 +6,12 @@ import com.challenge.bookingapi.exception.BookingException;
 import com.challenge.bookingapi.exception.CustomerException;
 import com.challenge.bookingapi.repository.IBookingRepository;
 import com.challenge.bookingapi.resource.dto.request.BookingRequestDto;
-import com.challenge.bookingapi.resource.dto.response.BookingDto;
 import com.challenge.bookingapi.service.IBookingService;
 import com.challenge.bookingapi.service.ICustomerService;
 import com.challenge.bookingapi.service.IRoomService;
+import com.challenge.bookingapi.util.BookingOperation;
 import com.challenge.bookingapi.util.GenericMapper;
+import com.challenge.bookingapi.util.ValidationsUtil;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -61,6 +62,7 @@ public class BookingServiceImpl implements IBookingService {
             Booking newBooking = GenericMapper.map(booking, Booking.class, this.modelMapper);
             newBooking.setCustomer(this.customerService.findCustomerById(booking.getCustomerId()).orElseThrow(() -> new CustomerException("Can not find Customer")));
             newBooking.setRoom(this.roomService.findById(booking.getRoomId()).orElseThrow(() -> new CustomerException("Can not find Room")));
+            ValidationsUtil.validateBookingOperation(newBooking, BookingOperation.CREATE);
             return Optional.of(this.bookingRepository.save(newBooking));
         } catch (BookingAppException e) {
             throw new BookingException(e.getMessage());
@@ -73,10 +75,11 @@ public class BookingServiceImpl implements IBookingService {
         return this.bookingRepository
                 .findById(bookingId)
                 .map(item -> {
+                    ValidationsUtil.validateBookingOperation(item, BookingOperation.CANCEL);
                     item.setBookingActived(false);
                     this.bookingRepository.save(item);
                     return Optional.of(true);
-                }).orElse(Optional.of(false));
+                }).orElseThrow(() -> new BookingException("Can not found booking"));
     }
 
     @Override

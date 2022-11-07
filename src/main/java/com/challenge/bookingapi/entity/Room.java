@@ -11,7 +11,7 @@ public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "room_id")
+    @Column(name = "roomId")
     private Long roomId;
     private String description;
     private String number;
@@ -20,7 +20,7 @@ public class Room {
     @JoinColumn(name = "HOTEl_ID")
     private Hotel hotel;
 
-    @OneToOne(mappedBy = "room")
+    @OneToOne
     private Booking booking;
 
 

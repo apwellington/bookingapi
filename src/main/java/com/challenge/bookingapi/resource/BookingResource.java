@@ -15,12 +15,18 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
 import static com.challenge.bookingapi.util.GenericMapper.map;
 import static com.challenge.bookingapi.util.GenericMapper.mapCollection;
@@ -30,6 +36,7 @@ import static com.challenge.bookingapi.util.ResponseUtil.preparedErrorResponse;
 @RestController
 @RequestMapping("/booking")
 @Log4j2
+@Validated
 public class BookingResource {
 
     private final IBookingService bookingService;
@@ -62,7 +69,7 @@ public class BookingResource {
 
 
     @GetMapping(value = "/cuscode/{customer}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDto> findBookingByCustomerCode(@PathVariable("customer") Long customerCode){
+    public ResponseEntity<ResponseDto> findBookingByCustomerCode(@PathVariable("customer") @NotBlank Long customerCode){
         log.info("findBookingByCustomerCode() - init");
         var response = new ResponseDto<Collection<BookingDto>>(LocalDateTime.now());
         try{
@@ -99,11 +106,11 @@ public class BookingResource {
     @PutMapping("")
     public ResponseEntity<ResponseDto> cancelBooking(@RequestParam("bookingID") Long bookingID){
         log.info("saveABooking() -init");
-        var response = new ResponseDto<BookingDto>(LocalDateTime.now());
+        var response = new ResponseDto<Boolean>(LocalDateTime.now());
 
         try{
             this.bookingService.cancelBooking(bookingID).ifPresent(item ->{
-                response.setData(map(item, BookingDto.class, modelMapper));
+                response.setData(item);
                 response.setMessage(HttpStatus.OK.getReasonPhrase());
                 response.setStatusCode(HttpStatus.OK.value());
             });
@@ -115,7 +122,7 @@ public class BookingResource {
     }
 
     @PutMapping("/{bookingId}")
-    public ResponseEntity<ResponseDto> updateBooking(@PathVariable Long bookingId, @RequestBody BookingRequestDto bookingRequestDto){
+    public ResponseEntity<ResponseDto> updateBooking(@PathVariable @Valid Long bookingId, @RequestBody @Valid BookingRequestDto bookingRequestDto){
         log.info("saveABooking() -init");
         var response = new ResponseDto<BookingDto>(LocalDateTime.now());
 
@@ -132,5 +139,18 @@ public class BookingResource {
         }
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({MethodArgumentNotValidException.class, MethodArgumentTypeMismatchException.class})
+    public ResponseEntity<ResponseDto> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        var response = new ResponseDto<BookingDto>(LocalDateTime.now());
+        var fieldsErrors = new ArrayList<String>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            fieldsErrors.add(error.getDefaultMessage());
+        });
+        response.setMessage("Fields Validations Error");
+        response.setErrors(fieldsErrors);
+        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.badRequest().body(response);
+    }
 
 }
