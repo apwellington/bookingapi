@@ -11,3 +11,6 @@ To use it, follow the steps below.
 - Run the command: java -jar -Dspring.profiles.active=dev  booking-api-0.0.1.jar
 - Download the Booking Api.postman collection.json file and import it into postman.
 - Happy Hanking. 
+
+# Docker!
+- run: docker run wetec/booking-api:0.0.3 
