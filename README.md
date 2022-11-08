@@ -13,4 +13,5 @@ To use it, follow the steps below.
 - Happy Hanking. 
 
 # Docker!
-- run: docker run wetec/booking-api:0.0.3 
+- run: docker run -p 8080:8080 wetec/booking-api:0.0.3
+- open http://localhost:8080/api/v1/booking in the browser. 
