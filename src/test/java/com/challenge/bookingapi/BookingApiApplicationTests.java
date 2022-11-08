@@ -8,12 +8,4 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class BookingApiApplicationTests {
 
-    @Autowired
-    private IRoomService roomService;
-
-    @Test
-    void contextLoads() {
-        this.roomService.findById(1L);
-    }
-
 }

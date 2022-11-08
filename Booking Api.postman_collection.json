@@ -1,0 +1,180 @@
+{
+	"info": {
+		"_postman_id": "6037e39e-2f92-4799-8b96-ca22432fb6d2",
+		"name": "Booking Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "find all booking",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/booking",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find booking by customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/booking/cuscode/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"booking",
+						"cuscode",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find available rooms by hotel id and date range",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/room/?hotelId=1&dateFrom=2022-11-01&dateTo=2022-11-30",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"room",
+						""
+					],
+					"query": [
+						{
+							"key": "hotelId",
+							"value": "1"
+						},
+						{
+							"key": "dateFrom",
+							"value": "2022-11-01"
+						},
+						{
+							"key": "dateTo",
+							"value": "2022-11-30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save A Booking",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"detail\": \"detail demo api demo\",\r\n    \"description\": \"description demo\",\r\n    \"fromDate\": \"2022-11-10\",\r\n    \"toDate\": \"2022-11-14\",\r\n    \"customerId\": 2,\r\n    \"roomId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/booking",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update booking",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"detail\": \"detail demo from api\",\r\n    \"description\": \"description demo\",\r\n    \"fromDate\": \"2022-11-15\",\r\n    \"toDate\": \"2022-11-15\",\r\n    \"customerId\": 2,\r\n    \"roomId\": 16\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/booking/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"booking",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel booking",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/booking?bookingID=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"booking"
+					],
+					"query": [
+						{
+							"key": "bookingID",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
