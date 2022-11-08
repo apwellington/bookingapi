@@ -17,3 +17,4 @@ public interface IRoomRepository  extends JpaRepository<Room, Long> {
     @Query("SELECT R FROM Room R WHERE R.hotel.hotelId = :hotelId AND R.roomId NOT IN (SELECT B.room.roomId FROM Booking B WHERE  B.toDate > :toDate AND  B.fromDate < :fromDate)")
     Optional<Collection<Room>> findAllByHotelAndDateRange(@Param("hotelId") Long hotelId, @Param("toDate") Date toDate, @Param("fromDate") Date fromDate);
 }
+
